@@ -1,0 +1,16 @@
+{
+    "development" : {
+        "global": {
+            "loglevel" : "debug",
+            "redis_url" : "localhost",
+            "redis_port" : 6379
+        }
+    },
+    "production" : {
+        "global": {
+            "loglevel" : "debug",
+            "redis_url" : "redis-service.tikoapi.svc.cluster.local",
+            "redis_port" : 6379
+        }
+    }
+}

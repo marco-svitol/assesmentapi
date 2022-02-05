@@ -1,0 +1,55 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    labels:
+      app: tikoapi
+    name: tikoapi-deploy
+    namespace: tikoapi
+spec:
+    replicas: 1
+    strategy:
+      type: RollingUpdate
+      rollingUpdate:
+        maxSurge: 50%
+    selector:
+      matchLabels:
+        app: tikoapi
+    template:
+      metadata:
+        labels:
+          app: tikoapi
+          app.kubernetes.io/name: tikoapi
+      spec:
+        containers:
+        - image: tikoapi:1.0
+          imagePullPolicy: Never
+          name: tikoapi
+          securityContext:
+              privileged: true
+          ports:
+          - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          resources:
+            requests:
+              cpu: 50m
+              memory: 50Mi
+            limits:
+              cpu: 100m
+              memory: 200Mi
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: TIKOAPI_SERVERPORT
+              value: '80'
