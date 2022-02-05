@@ -12,11 +12,14 @@
   
   You can get url:port assigned by minikube with:
   
-  ```minikube service tikoapi-deploy -n tikoapi --url```
+  ```
+  minikube service tikoapi-deploy -n tikoapi --url
+  ```
   
   and then curl it. Otherwise use a single line pipe cmd:
   
-```minikube service tikoapi-deploy -n tikoapi --url | \
+```
+minikube service tikoapi-deploy -n tikoapi --url | \
 curl --location --request POST "$(</dev/stdin)"/api/v1/setkey \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'key=Homer' --data-urlencode 'value=Simpson'
@@ -24,7 +27,8 @@ curl --location --request POST "$(</dev/stdin)"/api/v1/setkey \
   
   To read redis key. Pass the key value in the body:
   
-```minikube service tikoapi-deploy -n tikoapi --url | \
+```
+minikube service tikoapi-deploy -n tikoapi --url | \
 curl --location --request GET "$(</dev/stdin)"/api/v1/getkey \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'key=Homer'
