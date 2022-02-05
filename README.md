@@ -5,25 +5,27 @@
   k port-forward -n tikoapi tikoapi-deploy-795c8c8849-lr9q8 8080:80
 3) API endpoints are:
   
-  http://127.0.0.1:80/api/v1/setkey
+  {{host}}/api/v1/setkey
+  {{host}}/api/v1/getkey
   
   to set redis key. The key:value pairs must be passed in the body. i.e. key="Homer" value="Simpson"
   
-  You can use curl:
+  You can get url:port assigned by minikube with:
   
-  curl --location --request POST 'http://127.0.0.1:8080/api/v1/setkey' \
+  ```minikube service tikoapi-deploy -n tikoapi --url```
+  
+  and then curl it. Otherwise use a single line pipe cmd:
+  
+```minikube service tikoapi-deploy -n tikoapi --url | \
+curl --location --request POST "$(</dev/stdin)"/api/v1/setkey \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'key=Homer' \
---data-urlencode 'value=Simpson'
-
+--data-urlencode 'key=Homer' --data-urlencode 'value=Simpson'
+```
   
-  http://127.0.0.1:80/api/vi/getkey
+  To read redis key. Pass the key value in the body:
   
-  to read redis key. Pass the key value in the body:
-  
-  curl --location --request GET 'http://127.0.0.1:8080/api/v1/getkey' \
+```minikube service tikoapi-deploy -n tikoapi --url | \
+curl --location --request GET "$(</dev/stdin)"/api/v1/getkey \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'key=Homer'
- 
- 
-  
+```
