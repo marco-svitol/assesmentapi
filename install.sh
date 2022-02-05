@@ -17,5 +17,3 @@ minikube image load tikoapi:1.0
 
 kubectl apply ./k8s/ns.yaml
 Kubectl apply k8s
-
-k port-forward -n tikoapi tikoapi-deploy-795c8c8849-lr9q8 8080:80
