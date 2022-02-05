@@ -15,5 +15,5 @@ docker pull redis
 minikube image load redis:latest
 minikube image load tikoapi:1.0
 
-kubectl apply ./k8s/ns.yaml
-Kubectl apply k8s
+kubectl apply -f ./k8s/ns.yaml
+Kubectl apply -f k8s
